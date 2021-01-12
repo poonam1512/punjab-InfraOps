@@ -1,0 +1,83 @@
+global:
+  domain: pmidc-builds.digit.org
+cluster-configs:
+  namespaces:
+    create: false
+    values: [ monitoring, jenkins ]
+  root-ingress:
+    namespace: jenkins
+    serviceName: jenkins
+    servicePort: 8080
+    appRoot: ""
+    cert-issuer: "letsencrypt-prod"
+
+jenkins:
+  persistence:
+    enabled: true
+    aws:
+      - volumeId: "vol-02e527eb1864dc4a3"
+        zone: ap-south-1b
+  oauth:
+    enabled: true
+    acl:
+      admin:
+        - pmidc-digit*pmidc-service-devops
+      user:
+        - pmidc-digit*pb-dev
+       
+
+  jobBuilder:
+    repos: >-
+      ''
+
+  deploymentJobs:
+    - name: pb-qa
+      acl: [pmidc-digit*pb-uat]  
+    - name: pb-uat
+      acl: [pmidc-digit*pb-uat]   
+    - name: pb-prod-v2
+      acl: [pmidc-digit*PB-PROD] 
+    - name: pb-uat-v2
+      acl: [pmidc-digit*pb-uat]               
+    - name: ci
+      acl: [pmidc-digit*pmidc-service-devops]      
+      
+       
+  master:
+    ingress:
+      enabled: true
+    resources:
+      limits:
+        cpu: "2000m"
+        memory: "4096Mi"
+    javaOpts: "-Xms2560M -Xmx2560M -Duser.timezone=Asia/Calcutta"
+
+nginx-ingress:
+  replicas: 1
+  default-backend-service: "jenkins/jenkins"
+  namespace: jenkins
+  cert-issuer: "letsencrypt-staging"
+  ssl-protocols: "TLSv1.2 TLSv1.3"
+  ssl-ciphers: "EECDH+CHACHA20:EECDH+AES"
+  ssl-ecdh-curve: "X25519:prime256v1:secp521r1:secp384r1"
+  controller:
+    image:
+      repository: egovio/nginx-ingress-controller
+      tag: "0.26.1"
+
+cert-manager:
+  namespace: jenkins
+  email: "dm.it.pmidc@gmail.com"
+
+cluster-autoscaler:
+  namespace: jenkins
+  cloudProvider: aws  
+  awsRegion: ap-south-1
+  autoDiscovery:
+    clusterName: pmidc-cicd
+    tags:
+    - kubernetes.io/cluster/pmidc-cicd
+
+postgres:
+  namespace: jenkins
+  postgresDatabase: ci_database
