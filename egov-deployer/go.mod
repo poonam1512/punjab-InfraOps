@@ -1,4 +1,4 @@
-module github.com/egovernments/eGov-infraOps/egov-deployer
+module github.com/pmidc-digit/punjab-InfraOps/egov-deployer
 
 go 1.13
 

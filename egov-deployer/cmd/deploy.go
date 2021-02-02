@@ -18,7 +18,7 @@ package cmd
 import (
 	"errors"
 
-	"github.com/egovernments/eGov-infraOps/egov-deployer/pkg/cmd/deployer"
+	"github.com/pmidc-digit/punjab-InfraOps/egov-deployer/pkg/cmd/deployer"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

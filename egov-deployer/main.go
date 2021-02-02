@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/pmidc-egov-tech/punjab-InfraOps/egov-deployer/cmd"
+import "github.com/pmidc-digit/punjab-InfraOps/egov-deployer/cmd"
 
 func main() {
   cmd.Execute()
