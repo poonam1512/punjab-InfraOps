@@ -28,7 +28,7 @@ jenkins:
 
   jobBuilder:
     repos: >-
-      ''
+      'git@github.com:pmidc-digit/eGov-Punjab-Implementation.git','git@github.com:pmidc-digit/frontend.git'
 
   deploymentJobs:
     - name: pb-qa
