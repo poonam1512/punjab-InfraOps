@@ -74,7 +74,7 @@ cluster-configs:
               egov-enc-service: "http://egov-enc-service:8080/"
               egov-eis: "http://egov-eis:8080/"
               egov-workflow: "http://egov-workflow:8080/"
-              egov-workflow-v2: "http://egov-workflow-v2:8080/"
+              egov-workflow-v2: "http://egov-workflow-v2.egov:8080/"
               egov-searcher: "http://egov-searcher:8080/"
               egov-data-uploader: "http://egov-data-uploader:8080/"
               egov-indexer: "http://egov-indexer:8080/"
@@ -112,7 +112,7 @@ cluster-configs:
               user-otp: "http://user-otp:8080/"
               firenoc-services: "http://firenoc-services:8080/"
               firenoc-calculator: "http://firenoc-calculator:8080/"
-              pt-integration: "http://13.127.211.3:8080/"
+              pt-integration: "https://stvending.punjab.gov.in/"
               zuul: "http://zuul:8080/"
               ws-calculator: "http://ws-calculator.egov:8080/"
               ws-services: "http://ws-services.egov:8080/"
@@ -216,7 +216,7 @@ egov-otp:
 
 egov-user:
   replicas: 5
-  heap: "-Xmx756m -Xms756m -XX:TieredStopAtLevel=1"
+  heap: "-Xmx1024m -Xms1024m -XX:TieredStopAtLevel=1"
   memory_limits: 1Gi
   otp-validation: "true"
   citizen-otp-enabled: "true"
@@ -271,6 +271,21 @@ chatbot:
     ip-whitelist: "203.212.70.58/32,203.212.68.238/32,203.212.70.15/32,103.229.250.170/32,203.212.70.19/32" 
   test-data-cleanup-enabled: "true" 
 
+covid-chatbot:
+  replicas: 2
+  db-url: "jdbc:postgresql://pb-prod-v2-db-new.cq2b7v4okuhm.ap-south-1.rds.amazonaws.com:5432/covadbprod"
+  db-host: "pb-prod-v2-db-new.cq2b7v4okuhm.ap-south-1.rds.amazonaws.com"
+  db-name: "covadbprod"
+  whatsapp-provider: "ValueFirst"
+  valuefirst-whatsapp-number: "918744060444"
+  valuefirst-send-message-url: "https://api.myvaluefirst.com/psms/servlet/psms.JsonEservice"
+  valuefirst-welcome-message-templateid: "3459715"
+  cova-bearer-token: "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIzMjMiLCJ0cyI6IjU4IiwiZXhwIjoxNjM1OTI2OTEzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjYzODg0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzg4NCJ9.ovY-mtV3vU005bvYT5SCZwyVPAx-tgRw8TxDdIucPn0"
+  cova-auth-token: "f77762bfd1a69c37227d9206c3c40c50c686f485"
+  # Allow connections from this IP source range only
+  ingress:
+    ip-whitelist: "0.0.0.0/0"
+
 egov-mdms-service:
   replicas: 3
   memory_limits: 768Mi
@@ -294,7 +309,7 @@ egov-indexer:
     gitSync:
         repo: "git@github.com:egovernments/punjab-rainmaker-customization"
         branch: "PROD_V2"
-  egov-indexer-yaml-repo-path: "file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/billingservices-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/collection-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/egov-telemetry-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/egov-uploader-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/finance-rolloutadoption-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/rainmaker-pgr-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/rainmaker-pt-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/rainmaker-tl-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/payment-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/water-service.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/water-services-meter.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/sewerage-service.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/tradelicense-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/property-services.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/error-queue.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/payment-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/rainmaker-firenoc-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/payment-indexer-migration.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/property-services-migration-temp.yml"
+  egov-indexer-yaml-repo-path: "file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/billingservices-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/collection-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/egov-telemetry-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/egov-uploader-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/finance-rolloutadoption-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/rainmaker-pgr-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/rainmaker-pt-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/rainmaker-tl-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/payment-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/water-service.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/water-services-meter.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/sewerage-service.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/property-services.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/error-queue.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/payment-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/rainmaker-firenoc-indexer.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/payment-indexer-migration.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/property-services-migration-temp.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-indexer/covid-chatbot-telemetry.yaml"
 
 egov-workflow-v2:
   replicas: 3
@@ -308,7 +323,7 @@ egov-workflow-v2:
 
 egov-persister:
   replicas: 2
-  persist-yml-path: "file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pg-service-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pgr-v3-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/property-services-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pt-calculator-v2-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pt-drafts-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/tradelicense-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/indexer-job-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/tl-calculation-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/tl-billing-slab-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/apportion-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/assessment-persister-migration-temp.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/migration-batch-count-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/property-services-migration-temp-config.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/collection-migration-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/water-persist.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/water-meter.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/sewerage-persist.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/property-services-registry.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/property-services.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pt-mutation-calculator-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/assessment-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pdf-generator.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pdf-filestoreid-update.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/egov-user-event-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/firenoc_persiter.yaml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/firenoc-calculator-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/egf-bill.yaml"
+  persist-yml-path: "file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pg-service-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pgr-v3-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/property-services-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pt-calculator-v2-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pt-drafts-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/tradelicense-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/indexer-job-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/tl-calculation-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/tl-billing-slab-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/apportion-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/assessment-persister-migration-temp.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/migration-batch-count-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/property-services-migration-temp-config.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/collection-migration-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/water-persist.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/water-meter.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/sewerage-persist.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/property-services-registry.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/property-services.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pt-mutation-calculator-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/assessment-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pdf-generator.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/pdf-filestoreid-update.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/egov-user-event-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/firenoc_persiter.yaml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/firenoc-calculator-persister.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/egf-bill.yaml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/water-bill-scheduler.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-persister/sewerage-bill-scheduler.yml"
   java-args: "-Dspring.profiles.active=production"
   initContainers:
     gitSync:
@@ -317,6 +332,8 @@ egov-persister:
 
 egov-searcher:
   replicas: 2
+  heap: "-Xmx768m -Xms768m -XX:TieredStopAtLevel=1"
+  memory_limits: 1024Mi
   search-yaml-path: "file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/rainmaker-pgr-v2-searcher.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/rainmaker-pt-customsearch-punjab.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/rainmaker-pt-gissearch.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/weekly-impact-emailer-searcher.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/propertyopensearch.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/localitySearcher.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/bill-genie.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/PTDemandBasedSearcher.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/rainmaker-tl.yml,file:///work-dir/punjab-rainmaker-customization/configs/egov-searcher/weekly-impact-emailer-searcher.yml"
   java-args: "-Dspring.profiles.active=production"
   initContainers:
@@ -365,7 +382,7 @@ egov-telemetry-batch-process:
 
 egov-custom-consumer:
   replicas: 2
-  erp-host: "https://mohali.lgpunjab.gov.in/"
+  erp-host: "https://mohali-prod.lgpunjab.gov.in/"
 
 egov-weekly-impact-notifier:
   mail-to-address: "egov-impact-emailer@egovernments.org"
@@ -464,8 +481,8 @@ pdf-service:
     gitSync:
       repo: "git@github.com:egovernments/punjab-rainmaker-customization"
       branch: "PROD_V2"
-  data-config-urls: "file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/consolidatedbill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/consolidatedreceipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-consolidatedacknowlegment.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-consolidatedsewerageconnection.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-applicationsewerage.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-applicationwater.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-estimationnotice.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-sanctionletter.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-onetime-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tlrenewalcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tradelicense-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/property-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/property-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tradelicense-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/firenoc-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/pt-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tl-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tlapplication.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tlcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ptmutationcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/misc-receipt.json"
-  format-config-urls: "file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/consolidatedbill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/consolidatedreceipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-consolidatedacknowlegment.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-consolidatedsewerageconnection.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-applicationsewerage.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-applicationwater.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-estimationnotice.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-sanctionletter.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-onetime-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tlrenewalcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tradelicense-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/property-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/property-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tradelicense-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/firenoc-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/pt-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tl-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tlapplication.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tlcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ptmutationcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/misc-receipt.json"
+  data-config-urls: "file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/consolidatedbill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/consolidatedreceipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-consolidatedacknowlegment.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-consolidatedsewerageconnection.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-applicationsewerage.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-applicationwater.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-estimationnotice.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-sanctionletter.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ws-onetime-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tlrenewalcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tradelicense-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/property-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/property-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tradelicense-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/firenoc-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/pt-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tl-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tlapplication.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/tlcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/ptmutationcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/data-config/misc-receipt.json,file:///work-dir/configs/pdf-service/data-config/bill-amendment.json, file:///work-dir/configs/pdf-service/data-config/bill-amendment-note.json, file:///work-dir/configs/pdf-service/data-config/fsm-receipt.json, file:///work-dir/configs/pdf-service/data-config/sewerage-bill-amendment-note.json"
+  format-config-urls: "file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/consolidatedbill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/consolidatedreceipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-consolidatedacknowlegment.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-consolidatedsewerageconnection.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-applicationsewerage.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-applicationwater.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-estimationnotice.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-sanctionletter.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ws-onetime-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tlrenewalcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tradelicense-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/property-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/property-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tradelicense-bill.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/firenoc-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/pt-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tl-receipt.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tlapplication.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/tlcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/ptmutationcertificate.json,file:///work-dir/punjab-rainmaker-customization/configs/pdf-service/format-config/misc-receipt.json,file:///work-dir/configs/pdf-service/format-config/bill-amendment.json, file:///work-dir/configs/pdf-service/format-config/bill-amendment-note.json, file:///work-dir/configs/pdf-service/format-config/fsm-receipt.json, file:///work-dir/configs/pdf-service/format-config/sewerage-bill-amendment-note.json"
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -508,8 +525,8 @@ zuul:
   zuul-host-connect-timeout-millis: "30000"
   zuul-host-socket-timeout-millis: "80000"  
   java-args: "-Dspring.profiles.active=production"
-  egov-open-endpoints-whitelist: "/user/citizen/_create,/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-mdms-service/v1/_search,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/filestore/v1/files/url,/egov-mdms-service/v1/_get,/egov-url-shortening,/whatsapp-webhook/messages"
-  egov-mixed-mode-endpoints-whitelist: "/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tag,/user/_search,/access/v1/actions/mdms/_get"
+  egov-open-endpoints-whitelist: "/user/citizen/_create,/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-mdms-service/v1/_search,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/filestore/v1/files/url,/egov-mdms-service/v1/_get,/egov-url-shortening,/whatsapp-webhook/messages,/egov-location/location/v11/boundarys/_search,/rainmaker-pgr/v1/requests/_apicall"
+  egov-mixed-mode-endpoints-whitelist: "/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tag,/user/_search,/access/v1/actions/mdms/_get,/tl-services/v1/BPAREG/_create,/tl-services/v1/BPAREG/_update,/tl-calculator/v1/BPAREG/_getbill,/property-services/property/_search,/ws-services/wc/_search,/sw-services/swc/_search,/billing-service/bill/v2/_fetchbill,/billing-service/bill/v2/_search,/collection-services/payments/_search,/collection-services/payments/WS/_search,/collection-services/payments/SW/_search,/pg-service/transaction/v1/_update,/pg-service/transaction/v1/_create,/pdf-service/v1/_create,/collection-services/payments/PT/_search,/collection-services/payments/FIRENOC/_search,/collection-services/payments/TL/_search,/collection-services/payments/WS.ONE_TIME_FEE/_search,/collection-services/payments/SW.ONE_TIME_FEE/_search"
   eventlog-enabled: "true"
   EVENTLOG_TOPIC: "zuul-event-log"  
   eventlog-urls-whitelist: "/pt-calculator-v2,/pt-services-v2,/tl-services,/tl-calculator,/rainmaker-pgr,/billing-service,/collection-services,/pg-service"
@@ -587,6 +604,7 @@ employee:
       sub_filter  '<head>' '<head>
       <script src=https://s3.ap-south-1.amazonaws.com/pb-egov-assets/ulb-overrides-prod-v2-20201001.js type=text/javascript></script>
       <script src=https://s3.ap-south-1.amazonaws.com/egov-telemetry-data/egov-telemetry-1557467338.js type=text/javascript></script>
+      <script src=https://s3.ap-south-1.amazonaws.com/pb-egov-assets/globalConfigs_prod.js type=text/javascript></script>
       ';" 
 
 employee-mcs:
@@ -610,8 +628,8 @@ rainmaker-custom-service:
   replicas: 2
   db-host: "pb-prod-v2-db-new.cq2b7v4okuhm.ap-south-1.rds.amazonaws.com"
   db-name: "egov_prod_db"
-  pt-zero-tenants: "pb.zirakpur,pb.kharar,pb.ropar"
-  pt-integration-tenants: "pb.jalandhar,pb.phagwara,pb.amritsar"
+  pt-zero-tenants: "pb.zirakpur,pb.kharar,pb.ropar,pb.jalandhar"
+  pt-integration-tenants: "pb.phagwara,pb.amritsar,pb.jagraon,pb.mohali"
   egov-bnd-login-url: "http://13.71.85.9/LoginByPass/TokenGeneration"
   egov-bnd-redirect-url: "http://13.71.85.9/LoginBypass/Index?healthID="
   debug-mode: "true"
@@ -626,7 +644,7 @@ employee-tradelicence:
 # reportinfra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 report:
   replicas: 2
-  heap: "-Xmx712m -Xms712m"
+  heap: "-Xmx856m -Xms856m"
   tracing-enabled: "true"
   server-tomcat-max-threads: "30"
   server-tomcat-max-connections: "1000"
@@ -754,11 +772,41 @@ collection-services:
   server-tomcat-max-connections: "1500"
   spring-datasource-tomcat-max-active: "10"  
 
+# WnS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ws-services:
+  replicas: 3
+  java-args: "-Dspring.profiles.active=production"
+  heap: "-Xmx512m -Xms512m"
+  is-external-workflow-enabled: "true"
+
+ws-calculator:
+  replicas: 3
+  java-args: "-Dspring.profiles.active=production"
+  heap: "-Xmx512m -Xms512m"
+
+sw-services:
+  replicas: 3
+  java-args: "-Dspring.profiles.active=production"
+  heap: "-Xmx512m -Xms512m"
+  is-external-workflow-enabled: "true"
+
+sw-calculator:
+  replicas: 2
+  java-args: "-Dspring.profiles.active=production"
+  heap: "-Xmx512m -Xms512m"
+# WnS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 # financials >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 finance-collections-voucher-consumer:
-  erp-env-name: ""
+  erp-env-name: "prod"
   erp-domain-name: "lgpunjab.gov.in"
+  token-authorization-key: "Basic ZWdvdi11c2VyLWNsaWVudDplZ292LXVzZXItc2VjcmV0"
+
+egov-finance:
+  filestore_beanname: microDiskFileStoreService
+  rollout_dashboard_cron_expression: 0 0 6,14 ? * *
+  token_authorization_key: "Basic ZWdvdi11c2VyLWNsaWVudDplZ292LXVzZXItc2VjcmV0"
 
 egf-master:
   replicas: 2
@@ -1115,57 +1163,173 @@ prometheus-operator:
 
 # eGov-Finance Tenants
 financeTenants: |
-  tenant.mohali.lgpunjab.gov.in=mohali
-  tenant.nayagaon.lgpunjab.gov.in=nayagaon
-  tenant.zirakpur.lgpunjab.gov.in=zirakpur
-  tenant.kharar.lgpunjab.gov.in=kharar
-  tenant.malerkotla.lgpunjab.gov.in=malerkotla
-  tenant.batala.lgpunjab.gov.in=batala
-  tenant.moga.lgpunjab.gov.in=moga
-  tenant.ferozepur.lgpunjab.gov.in=ferozepur
-  tenant.hoshiarpur.lgpunjab.gov.in=hoshiarpur
-  tenant.pathankot.lgpunjab.gov.in=pathankot
-  tenant.amritsar.lgpunjab.gov.in=amritsar
-  tenant.ludhiana.lgpunjab.gov.in=ludhiana
-  tenant.jalandhar.lgpunjab.gov.in=jalandhar
-  tenant.khanna.lgpunjab.gov.in=khanna
-  tenant.muktsar.lgpunjab.gov.in=muktsar
-  tenant.patiala.lgpunjab.gov.in=patiala
-  tenant.bathinda.lgpunjab.gov.in=bathinda
-  tenant.abohar.lgpunjab.gov.in=abohar
-  tenant.phagwara.lgpunjab.gov.in=phagwara
-  tenant.barnala.lgpunjab.gov.in=barnala
-  tenant.banga.lgpunjab.gov.in=banga
-  tenant.dasuya.lgpunjab.gov.in=dasuya
-  tenant.doraha.lgpunjab.gov.in=doraha
-  tenant.faridkot.lgpunjab.gov.in=faridkot
-  tenant.fazilka.lgpunjab.gov.in=fazilka
-  tenant.garhshankar.lgpunjab.gov.in=garhshankar
-  tenant.gurdaspur.lgpunjab.gov.in=gurdaspur
-  tenant.jagraon.lgpunjab.gov.in=jagraon
-  tenant.kapurthala.lgpunjab.gov.in=kapurthala
-  tenant.kotkapura.lgpunjab.gov.in=kotkapura
-  tenant.kurali.lgpunjab.gov.in=kurali
-  tenant.malout.lgpunjab.gov.in=malout
-  tenant.mandigobindgarh.lgpunjab.gov.in=mandigobindgarh
-  tenant.mansa.lgpunjab.gov.in=mansa
-  tenant.morinda.lgpunjab.gov.in=morinda
-  tenant.derabassi.lgpunjab.gov.in=derabassi
-  tenant.mullanpur.lgpunjab.gov.in=mullanpur
-  tenant.mukerian.lgpunjab.gov.in=mukerian
-  tenant.nabha.lgpunjab.gov.in=nabha
-  tenant.nakodar.lgpunjab.gov.in=nakodar
-  tenant.nangal.lgpunjab.gov.in=nangal
-  tenant.nawanshahr.lgpunjab.gov.in=nawanshahr
-  tenant.patran.lgpunjab.gov.in=patran
-  tenant.raikot.lgpunjab.gov.in=raikot
-  tenant.rajpura.lgpunjab.gov.in=rajpura
-  tenant.ropar.lgpunjab.gov.in=ropar
-  tenant.samana.lgpunjab.gov.in=samana
-  tenant.samrala.lgpunjab.gov.in=samrala
-  tenant.sangrur.lgpunjab.gov.in=sangrur
-  tenant.sirhind.lgpunjab.gov.in=sirhind
-  tenant.urmartanda.lgpunjab.gov.in=urmartanda
+  tenant.mohali-prod.lgpunjab.gov.in=mohali
+  tenant.nayagaon-prod.lgpunjab.gov.in=nayagaon
+  tenant.zirakpur-prod.lgpunjab.gov.in=zirakpur
+  tenant.kharar-prod.lgpunjab.gov.in=kharar
+  tenant.malerkotla-prod.lgpunjab.gov.in=malerkotla
+  tenant.batala-prod.lgpunjab.gov.in=batala
+  tenant.moga-prod.lgpunjab.gov.in=moga
+  tenant.ferozepur-prod.lgpunjab.gov.in=ferozepur
+  tenant.hoshiarpur-prod.lgpunjab.gov.in=hoshiarpur
+  tenant.pathankot-prod.lgpunjab.gov.in=pathankot
+  tenant.amritsar-prod.lgpunjab.gov.in=amritsar
+  tenant.ludhiana-prod.lgpunjab.gov.in=ludhiana
+  tenant.jalandhar-prod.lgpunjab.gov.in=jalandhar
+  tenant.khanna-prod.lgpunjab.gov.in=khanna
+  tenant.muktsar-prod.lgpunjab.gov.in=muktsar
+  tenant.patiala-prod.lgpunjab.gov.in=patiala
+  tenant.bathinda-prod.lgpunjab.gov.in=bathinda
+  tenant.abohar-prod.lgpunjab.gov.in=abohar
+  tenant.phagwara-prod.lgpunjab.gov.in=phagwara
+  tenant.barnala-prod.lgpunjab.gov.in=barnala
+  tenant.banga-prod.lgpunjab.gov.in=banga
+  tenant.dasuya-prod.lgpunjab.gov.in=dasuya
+  tenant.doraha-prod.lgpunjab.gov.in=doraha
+  tenant.faridkot-prod.lgpunjab.gov.in=faridkot
+  tenant.fazilka-prod.lgpunjab.gov.in=fazilka
+  tenant.garhshankar-prod.lgpunjab.gov.in=garhshankar
+  tenant.gurdaspur-prod.lgpunjab.gov.in=gurdaspur
+  tenant.jagraon-prod.lgpunjab.gov.in=jagraon
+  tenant.kapurthala-prod.lgpunjab.gov.in=kapurthala
+  tenant.kotkapura-prod.lgpunjab.gov.in=kotkapura
+  tenant.kurali-prod.lgpunjab.gov.in=kurali
+  tenant.malout-prod.lgpunjab.gov.in=malout
+  tenant.mandigobindgarh-prod.lgpunjab.gov.in=mandigobindgarh
+  tenant.mansa-prod.lgpunjab.gov.in=mansa
+  tenant.morinda-prod.lgpunjab.gov.in=morinda
+  tenant.derabassi-prod.lgpunjab.gov.in=derabassi
+  tenant.mullanpur-prod.lgpunjab.gov.in=mullanpur
+  tenant.mukerian-prod.lgpunjab.gov.in=mukerian
+  tenant.nabha-prod.lgpunjab.gov.in=nabha
+  tenant.nakodar-prod.lgpunjab.gov.in=nakodar
+  tenant.nangal-prod.lgpunjab.gov.in=nangal
+  tenant.nawanshahr-prod.lgpunjab.gov.in=nawanshahr
+  tenant.patran-prod.lgpunjab.gov.in=patran
+  tenant.raikot-prod.lgpunjab.gov.in=raikot
+  tenant.rajpura-prod.lgpunjab.gov.in=rajpura
+  tenant.ropar-prod.lgpunjab.gov.in=ropar
+  tenant.samana-prod.lgpunjab.gov.in=samana
+  tenant.samrala-prod.lgpunjab.gov.in=samrala
+  tenant.sangrur-prod.lgpunjab.gov.in=sangrur
+  tenant.sirhind-prod.lgpunjab.gov.in=sirhind
+  tenant.urmartanda-prod.lgpunjab.gov.in=urmartanda
+  tenant.anandpursahib-prod.lgpunjab.gov.in=anandpursahib
+  tenant.sahnewal-prod.lgpunjab.gov.in=sahnewal
+  tenant.sunam-prod.lgpunjab.gov.in=sunam
+  tenant.lalru-prod.lgpunjab.gov.in=lalru
+  tenant.arniwala-prod.lgpunjab.gov.in=arniwala
+  tenant.baghapurana-prod.lgpunjab.gov.in=baghapurana
+  tenant.bareta-prod.lgpunjab.gov.in=bareta
+  tenant.bhuchomandi-prod.lgpunjab.gov.in=bhuchomandi
+  tenant.budhlada-prod.lgpunjab.gov.in=budhlada
+  tenant.dharamkot-prod.lgpunjab.gov.in=dharamkot
+  tenant.dhariwal-prod.lgpunjab.gov.in=dhariwal
+  tenant.dinanagar-prod.lgpunjab.gov.in=dinanagar
+  tenant.gidderbaha-prod.lgpunjab.gov.in=gidderbaha
+  tenant.goniana-prod.lgpunjab.gov.in=goniana
+  tenant.guruharsahai-prod.lgpunjab.gov.in=guruharsahai
+  tenant.jaitu-prod.lgpunjab.gov.in=jaitu
+  tenant.jalalabad-prod.lgpunjab.gov.in=jalalabad
+  tenant.jandialaguru-prod.lgpunjab.gov.in=jandialaguru
+  tenant.kotfatta-prod.lgpunjab.gov.in=kotfatta
+  tenant.majitha-prod.lgpunjab.gov.in=majitha
+  tenant.maur-prod.lgpunjab.gov.in=maur
+  tenant.patti-prod.lgpunjab.gov.in=patti
+  tenant.raman-prod.lgpunjab.gov.in=raman
+  tenant.ramdass-prod.lgpunjab.gov.in=ramdass
+  tenant.rampuraphul-prod.lgpunjab.gov.in=rampuraphul
+  tenant.sangatmandi-prod.lgpunjab.gov.in=sangatmandi
+  tenant.sujanpur-prod.lgpunjab.gov.in=sujanpur
+  tenant.talwandibhai-prod.lgpunjab.gov.in=talwandibhai
+  tenant.tarntaran-prod.lgpunjab.gov.in=tarntaran
+  tenant.zira-prod.lgpunjab.gov.in=zira
+  tenant.adampur-prod.lgpunjab.gov.in=adampur
+  tenant.alawalpur-prod.lgpunjab.gov.in=alawalpur
+  tenant.balachaur-prod.lgpunjab.gov.in=balachaur
+  tenant.bhogpur-prod.lgpunjab.gov.in=bhogpur
+  tenant.bilga-prod.lgpunjab.gov.in=bilga
+  tenant.garhdiwala-prod.lgpunjab.gov.in=garhdiwala
+  tenant.goraya-prod.lgpunjab.gov.in=goraya
+  tenant.hariana-prod.lgpunjab.gov.in=hariana
+  tenant.kartarpur-prod.lgpunjab.gov.in=kartarpur
+  tenant.nurmahal-prod.lgpunjab.gov.in=nurmahal
+  tenant.phillaur-prod.lgpunjab.gov.in=phillaur
+  tenant.rahon-prod.lgpunjab.gov.in=rahon
+  tenant.shamchurasi-prod.lgpunjab.gov.in=shamchurasi
+  tenant.sultanpurlodhi-prod.lgpunjab.gov.in=sultanpurlodhi
+  tenant.amloh-prod.lgpunjab.gov.in=amloh
+  tenant.bassipathana-prod.lgpunjab.gov.in=bassipathana
+  tenant.payal-prod.lgpunjab.gov.in=payal
+  tenant.ahmedgarh-prod.lgpunjab.gov.in=ahmedgarh
+  tenant.amargarh-prod.lgpunjab.gov.in=amargarh
+  tenant.banur-prod.lgpunjab.gov.in=banur
+  tenant.bhadaur-prod.lgpunjab.gov.in=bhadaur
+  tenant.bhadson-prod.lgpunjab.gov.in=bhadson
+  tenant.bhawanigarh-prod.lgpunjab.gov.in=bhawanigarh
+  tenant.dhanaula-prod.lgpunjab.gov.in=dhanaula
+  tenant.dhuri-prod.lgpunjab.gov.in=dhuri
+  tenant.ghagga-prod.lgpunjab.gov.in=ghagga
+  tenant.handiaya-prod.lgpunjab.gov.in=handiaya
+  tenant.lehragaga-prod.lgpunjab.gov.in=lehragaga
+  tenant.longowal-prod.lgpunjab.gov.in=longowal
+  tenant.sanaur-prod.lgpunjab.gov.in=sanaur
+  tenant.tapa-prod.lgpunjab.gov.in=tapa
+  tenant.machhiwara-prod.lgpunjab.gov.in=machhiwara
+  tenant.moonak-prod.lgpunjab.gov.in=moonak
+  tenant.cheema-prod.lgpunjab.gov.in=cheema
+  tenant.nihalsinghwala-prod.lgpunjab.gov.in=nihalsinghwala
+  tenant.mudki-prod.lgpunjab.gov.in=mudki
+  tenant.mamdot-prod.lgpunjab.gov.in=mamdot
+  tenant.mallanwala-prod.lgpunjab.gov.in=mallanwala
+  tenant.makhu-prod.lgpunjab.gov.in=makhu
+  tenant.kotissekhan-prod.lgpunjab.gov.in=kotissekhan
+  tenant.fatehgarhpanjtoor-prod.lgpunjab.gov.in=fatehgarhpanjtoor
+  tenant.badhnikalan-prod.lgpunjab.gov.in=badhnikalan
+  tenant.dirba-prod.lgpunjab.gov.in=dirba
+  tenant.ajnala-prod.lgpunjab.gov.in=ajnala
+  tenant.bhikhiwind-prod.lgpunjab.gov.in=bhikhiwind
+  tenant.derababananak-prod.lgpunjab.gov.in=derababananak
+  tenant.fatehgarhchurian-prod.lgpunjab.gov.in=fatehgarhchurian
+  tenant.khemkaran-prod.lgpunjab.gov.in=khemkaran
+  tenant.narotjaimalsingh-prod.lgpunjab.gov.in=narotjaimalsingh
+  tenant.quadian-prod.lgpunjab.gov.in=quadian
+  tenant.rajasansi-prod.lgpunjab.gov.in=rajasansi
+  tenant.rayya-prod.lgpunjab.gov.in=rayya
+  tenant.srihargobindpur-prod.lgpunjab.gov.in=srihargobindpur
+  tenant.balianwali-prod.lgpunjab.gov.in=balianwali
+  tenant.bariwala-prod.lgpunjab.gov.in=bariwala
+  tenant.bhagtabhai-prod.lgpunjab.gov.in=bhagtabhai
+  tenant.bhairoopa-prod.lgpunjab.gov.in=bhairoopa
+  tenant.bhikhi-prod.lgpunjab.gov.in=bhikhi
+  tenant.boha-prod.lgpunjab.gov.in=boha
+  tenant.chaunke-prod.lgpunjab.gov.in=chaunke
+  tenant.joga-prod.lgpunjab.gov.in=joga
+  tenant.kotshamir-prod.lgpunjab.gov.in=kotshamir
+  tenant.kothaguru-prod.lgpunjab.gov.in=kothaguru
+  tenant.lehramohabbat-prod.lgpunjab.gov.in=lehramohabbat
+  tenant.maluka-prod.lgpunjab.gov.in=maluka
+  tenant.mandikalan-prod.lgpunjab.gov.in=mandikalan
+  tenant.mehraj-prod.lgpunjab.gov.in=mehraj
+  tenant.nathana-prod.lgpunjab.gov.in=nathana
+  tenant.rampura-prod.lgpunjab.gov.in=rampura
+  tenant.sardulgarh-prod.lgpunjab.gov.in=sardulgarh
+  tenant.talwandisabo-prod.lgpunjab.gov.in=talwandisabo
+  tenant.begowal-prod.lgpunjab.gov.in=begowal
+  tenant.bhulath-prod.lgpunjab.gov.in=bhulath
+  tenant.dhilwan-prod.lgpunjab.gov.in=dhilwan
+  tenant.lohiankhas-prod.lgpunjab.gov.in=lohiankhas
+  tenant.mehatpur-prod.lgpunjab.gov.in=mehatpur
+  tenant.nadala-prod.lgpunjab.gov.in=nadala
+  tenant.mahilpur-prod.lgpunjab.gov.in=mahilpur
+  tenant.shahkot-prod.lgpunjab.gov.in=shahkot
+  tenant.talwara-prod.lgpunjab.gov.in=talwara
+  tenant.khamano-prod.lgpunjab.gov.in=khamano
+  tenant.kiratpur-prod.lgpunjab.gov.in=kiratpur
+  tenant.maloud-prod.lgpunjab.gov.in=maloud
+  tenant.chamkaursahib-prod.lgpunjab.gov.in=chamkaursahib
+  tenant.ghanaur-prod.lgpunjab.gov.in=ghanaur
+  tenant.khanauri-prod.lgpunjab.gov.in=khanauri
   location.user.role=Collection Operator
   collection.debitaccounthead.client.impl.class=org.egov.collection.integration.services.DebitAccountHeadDetailsServiceImpl
 
