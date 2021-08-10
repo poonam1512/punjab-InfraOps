@@ -29,7 +29,7 @@ appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx256m -Xms256m"
 java-args: "-Dspring.profiles.active=monitoring"
-egov.idgen.fsm.applicationNum.format: "PB-FSM-[cy:yyyy-MM-dd]-[SEQ_EG_FSM_APN]"
+egov.idgen.fsm.applicationNum.format: "[CITY.CODE]-FSM-[cy:yyyy-MM-dd]-[SEQ_EGOV_FSM]"
 
 # Additional Container Envs
 env: |
@@ -43,6 +43,16 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-mdms-service
+  - name: EGOV_URL_SHORTNER_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-url-shortening
+  - name: EGOV_PDF_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: pdf-service
   - name: EGOV_USER_HOST
     valueFrom:
       configMapKeyRef:
@@ -63,11 +73,26 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: billing-service
+  - name: EGOV_COLLECTION_SERVICE_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: collection-services
   - name: EGOV_FSM_CALCULATOR_HOST
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
         key: fsm-calculator
+  - name: EGOV_VEHICLE_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: vehicle
+  - name: EGOV_VENDOR_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: vendor
   - name: EGOV_UI_APP_HOST
     valueFrom:
       configMapKeyRef:
@@ -80,6 +105,8 @@ env: |
         key: egov-workflow-v2
   - name: WORKFLOW_TRANSITION_PATH
     value: "egov-workflow-v2/egov-wf/process/_transition"
+  - name: EGOV_IDGEN_FSM_APPLICATIONNUM_FORMAT
+    value: "[CITY.CODE]-FSM-[cy:yyyy-MM-dd]-[SEQ_EGOV_FSM]"
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
     value: egov-fsm-service
   - name: PERSISTER_SAVE_FSM_TOPIC
@@ -90,6 +117,10 @@ env: |
     value: update-fsm-workflow-application
   - name: PERSISTER_UPDATE_FSM_ADHOC_TOPIC
     value: update-fsm-adhoc-application
+  - name: PERSISTER_SAVE_PLANTMAP_TOPIC
+    value: save-plant-map-application
+  - name: PERSISTER_UPDATE_PLANTMAP_TOPIC
+    value: update-plant-map-application
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
   - name: SPRING_KAFKA_PRODUCER_VALUE_SERIALIZER
@@ -100,8 +131,6 @@ env: |
     value: {{ index .Values "java-args" | quote }}
   - name: SERVER_PORT
     value: "8080"
-  - name: EGOV_IDGEN_BPA_FORMAT
-    value: {{ index .Values "egov.idgen.fsm.applicationNum.format" | quote }}
   - name: SECURITY_BASIC_ENABLED
     value: "false"  
   - name: MANAGEMENT_SECURITY_ENABLED
