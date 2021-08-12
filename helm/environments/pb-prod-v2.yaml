@@ -1,5 +1,6 @@
 global:
     domain: mseva.lgpunjab.gov.in
+    containerRegistry: pmidcio
 cluster-configs:
     namespaces:
         create: true
