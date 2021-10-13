@@ -801,7 +801,7 @@ collection-services:
   java-args: "-Dspring.profiles.active=production"
   tracing-enabled: "true"
   receipt-search-paginate: "true"
-  receipt-search-defaultsize: 30
+  receipt-search-defaultsize: 500
   user-create-enabled: "true"
   server-tomcat-max-threads: "25"
   server-tomcat-max-connections: "1500"
